@@ -9,52 +9,13 @@
 </head>
 <body>
   <h2>Registrate!</h2>
-  <form id="loginForm">
-    <label for="username">Nombre de usuario</label>
-    <input type="text" id="username" name="username" placeholder="Tu usuario" required>
-
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="Tu email" required>
-
-    <label for="password">Contraseña</label>
-    <input type="password" id="password" name="password" placeholder="Tu contraseña" required>
-
-    <button type="submit" class="button-primary btn">Registrarse</button>
+  <form id="registerForm">
+    <input type="text" name="username" placeholder="Usuario" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Contraseña" required>
+    <button type="submit">Registrarse</button>
+    <div id="messageContainer"></div>
   </form>
-
-  <p>¿Ya tienes cuenta? <a href="/index.html">Inicia sesión aquí</a></p>
-  <script>
-    const registerForm = document.getElementById("registerForm");
-    if (registerForm) {
-      registerForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const container = registerForm.parentElement;
-
-        const username = registerForm.username.value;
-        const email = registerForm.email.value;
-        const password = registerForm.password.value;
-
-        try {
-          const res = await fetch("/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, email, password }),
-          });
-
-          const data = await res.json();
-
-          if (res.ok) {
-            //Aquí sí hacemos la redirección a success.html
-            window.location.href = "/success.html";
-          } else {
-            //Mostrar error dentro de la página
-            showMessage(container, data.message, "error");
-          }
-        } catch (err) {
-          showMessage(container, "Error de conexión: " + err.message, "error");
-        }
-      });
-    }
-  </script>
+<script src="/js/script.js"></script>
 </body>
 </html>
