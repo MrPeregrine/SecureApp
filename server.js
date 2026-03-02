@@ -28,6 +28,14 @@ app.get('/register', (req, res) => {
 // Rutas de usuarios
 app.use('/users', usersRouter);
 
+app.use((err, req, res, next) => {
+  console.error("❌ ERROR:", err);        // se verá en los logs de Railway
+  res.status(500).json({ 
+    message: "Error interno del servidor", 
+    error: err.message 
+  });
+});
+
 // Levantar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
