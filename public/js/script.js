@@ -24,7 +24,7 @@ if (loginForm) {
     const password = loginForm.password.value;
 
     try {
-      const res = await fetch("/login", {
+      const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -55,7 +55,7 @@ if (registerForm) {
     const password = registerForm.password.value;
 
     try {
-      const res = await fetch("/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password }),
