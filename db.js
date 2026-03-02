@@ -1,8 +1,7 @@
 const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
-  uri: process.env.MYSQL_PUBLIC_URL, // URL pública de Railway
-  waitForConnections: true,
+  uri: process.env.MYSQL_PUBLIC_URL || "mysql://root:IRlLJMyIBjhzAfOtHafqqEAXwrtbGKVw@caboose.proxy.rlwy.net:34724/railway",
   connectionLimit: 10
 });
 

@@ -1,42 +1,21 @@
 const express = require('express');
-const path = require('path');
+const app = express();
 const usersRouter = require('./routes/users');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware para recibir datos de formularios
-app.use(express.urlencoded({ extended: true }));
+// Middleware para JSON
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Servir archivos estáticos (CSS, JS)
-app.use(express.static(path.join(__dirname, 'public')));
+// Servir archivos estáticos desde "public"
+app.use(express.static('public'));
 
-// Rutas HTML
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
-});
+// Rutas
+app.use('/', usersRouter);
 
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.html'));
-});
+// Servir HTML
+app.get('/', (req, res) => res.sendFile(__dirname + '/views/index.html'));
+app.get('/register.html', (req, res) => res.sendFile(__dirname + '/views/register.html'));
 
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'register.html'));
-});
-
-// Rutas de usuarios
-app.use('/users', usersRouter);
-
-app.use((err, req, res, next) => {
-  console.error("ERROR:", err);        // se verá en los logs de Railway
-  res.status(500).json({ 
-    message: "Error interno del servidor", 
-    error: err.message 
-  });
-});
-
-// Levantar servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+// Iniciar servidor
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
