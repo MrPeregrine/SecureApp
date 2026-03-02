@@ -29,7 +29,7 @@ app.get('/register', (req, res) => {
 app.use('/users', usersRouter);
 
 app.use((err, req, res, next) => {
-  console.error("❌ ERROR:", err);        // se verá en los logs de Railway
+  console.error("ERROR:", err);        // se verá en los logs de Railway
   res.status(500).json({ 
     message: "Error interno del servidor", 
     error: err.message 
