@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro Exitoso</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-  <link rel="stylesheet" href="/public/style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <h2>Registrate!</h2>
@@ -22,7 +22,7 @@
     <button type="submit" class="button-primary btn">Registrarse</button>
   </form>
 
-  <p>¿Ya tienes cuenta? <a href="/views/index.html">Inicia sesión aquí</a></p>
+  <p>¿Ya tienes cuenta? <a href="/index.html">Inicia sesión aquí</a></p>
   <script>
     const registerForm = document.getElementById("registerForm");
     if (registerForm) {
@@ -44,10 +44,10 @@
           const data = await res.json();
 
           if (res.ok) {
-            // ✅ Aquí sí hacemos la redirección a success.html
+            //Aquí sí hacemos la redirección a success.html
             window.location.href = "/success.html";
           } else {
-            // ⚠️ Mostrar error dentro de la página
+            //Mostrar error dentro de la página
             showMessage(container, data.message, "error");
           }
         } catch (err) {
