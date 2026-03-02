@@ -1,25 +1,34 @@
-require('dotenv').config();
 const express = require('express');
-const app = express();
-const userRoutes = require('./routes/users');
 const path = require('path');
+const usersRouter = require('./routes/users');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-// Archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/users', userRoutes);
-
-// Manejo seguro de errores
-app.use((err, req, res, next) => {
-    console.error("Error interno:", err.message);
-    res.status(500).json({ message: "Ocurrió un error interno." });
-});
-
+const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middleware para recibir datos de formularios
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Servir archivos estáticos (CSS, JS)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Rutas HTML
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'register.html'));
+});
+
+// Rutas de usuarios
+app.use('/users', usersRouter);
+
+// Levantar servidor
 app.listen(PORT, () => {
-    console.log(`Servidor ejecutándose en puerto ${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
